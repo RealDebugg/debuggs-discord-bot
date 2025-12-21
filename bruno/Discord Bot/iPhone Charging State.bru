@@ -1,0 +1,23 @@
+meta {
+  name: iPhone Charging State
+  type: http
+  seq: 3
+}
+
+post {
+  url: 127.0.0.1:5050/charge
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "isCharging": true, 
+    "batteryLevel": 78
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
