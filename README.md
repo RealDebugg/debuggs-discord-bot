@@ -21,7 +21,7 @@ Copy and paste the example.config.json and rename it to config.json. Then fill o
 
 I also opted to use custom emojis on the join/leave messages. To add an emoji of your choice, enter their respective emoji id in the config.
 
-To get an emoji id in Discord type `\:insert emoji name:` in any channel in Discord.
+To get an emoji id in Discord type `\:insert emoji name:` in any channel in Discord. This of course also works with default discord emojis!
 
 ## Installing the dependencies:
 
