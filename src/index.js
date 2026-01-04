@@ -7,6 +7,7 @@ const {
 } = require('discord.js');
 const { guildId, channelIds, activity } = require('../config.json');
 const createWebServer = require('./web');
+const wait = require('timers/promises').setTimeout;
 
 const client = new Client({
 	intents: [
@@ -17,16 +18,24 @@ const client = new Client({
 });
 module.exports = { client };
 require('./events/guildMember');
+const { initInvites } = require('./events/invites');
 
 client.once(Events.ClientReady, async (readyClient) => {
+	await wait(1000);
+
+	initInvites();
+
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+
 	client.user.setPresence({
 		activities: [{ name: activity, type: ActivityType.Listening }],
 		status: 'online',
 	});
 
-	const members = client.guilds.cache.find(
-		(guild) => guild.id === guildId).memberCount;
+	const theGuild = client.guilds.cache.find(
+		(guild) => guild.id === guildId);
+	const members = theGuild.memberCount;
+
 	client.channels.cache
 		.get(channelIds.memberCount)
 		.setName(`🧑‍💻 Member Count: ${members}`);

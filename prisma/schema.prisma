@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -10,8 +10,7 @@ datasource db {
   provider = "sqlite"
 }
 
-model OldUsers {
-  id      Int    @id @default(autoincrement())
-  guildId String
-  userId  String
+model GuildMembers {
+  id          Int    @id @default(autoincrement())
+  userGuildId String @unique
 }
