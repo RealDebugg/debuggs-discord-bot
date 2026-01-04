@@ -19,6 +19,10 @@ Copy and paste the example.config.json and rename it to config.json. Then fill o
 - `userId`: YOUR Discord User ID
 - `activity`: The text the bot will show under it's activity.
 
+I also opted to use custom emojis on the join/leave messages. To add an emoji of your choice, enter their respective emoji id in the config.
+
+To get an emoji id in Discord type `\:insert emoji name:` in any channel in Discord.
+
 ## Installing the dependencies:
 
 To install all the dependencies in this project, run `npm install`. You'll have to run this command before your first start. After this, you'll need to setup a Prisma database.

@@ -6,6 +6,10 @@
     "iphoneAnnouncements": "",
     "joinAnnouncements": ""
   },
+  "emojis": {
+    "join": "",
+    "leave": ""
+  },
   "userId": "",
   "activity": ""
 }
