@@ -10,10 +10,8 @@ async function initInvites() {
 	const firstInvites = await theGuild.invites.fetch();
 	firstInvites.forEach((invite) => {
 		const inviterName = theGuild.members.cache.find(member => member.id === invite.inviterId);
-		invites.set(invite.code, inviterName.user.globalName, invite.uses);
+		invites.set(invite.code, { name: inviterName.user.globalName, uses: invite.uses });
 	});
-
-    console.log(invites);
 }
 
 client.on('inviteDelete', (invite) => {
@@ -26,7 +24,7 @@ client.on('inviteCreate', (invite) => {
 
 	const inviterName = theGuild.members.cache.find(member => member.id === invite.inviterId);
 	// Update cache on new invites
-	invites.set(invite.code, inviterName.user.globalName, invite.uses);
+	invites.set(invite.code, { name: inviterName.user.globalName, uses: invite.uses });
 });
 
 module.exports = { initInvites, invites };

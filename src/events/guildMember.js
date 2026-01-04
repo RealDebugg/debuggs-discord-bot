@@ -1,6 +1,7 @@
 const { client } = require('../index');
 const { channelIds } = require('../../config.json');
 const { prisma } = require('../lib/prisma');
+const { invites } = require('./invites');
 
 client.on('guildMemberAdd', async (member) => {
 	client.channels.cache.get(channelIds.memberCount).setName(`🧑‍💻 Member Count: ${member.guild.memberCount}`);
@@ -20,9 +21,13 @@ client.on('guildMemberAdd', async (member) => {
 		});
 	}
 
+	const newInvites = await member.guild.invites.fetch();
+	const invite = newInvites.find(i => i.uses > invites.get(i.code).uses);
+	const invitee = member.guild.members.cache.find(inviter => inviter.id === invite.inviterId);
+
 	const guildMemberAddChannel = client.channels.cache.get(channelIds.joinAnnouncements);
 	if (guildMemberAddChannel) {
-		guildMemberAddChannel.send(`<@${member.user.id}> joined the server, invited by **???**.` + (oldMember ? ' Welcome back!' : ''));
+		guildMemberAddChannel.send(`<@${member.user.id}> joined the server, invited by **${(invitee ? invitee.user.globalName : 'Unknown')}**.` + (oldMember ? ' Welcome back!' : ''));
 	}
 });
 
