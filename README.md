@@ -5,12 +5,14 @@ As of writing this, it runs on Discord.JS v14.25.x.
 
 # Setup:
 
-To setup and prepare the bot, create a copy of the example.env file and rename it to .env.
+To setup and prepare the bot:
+- Create a copy of the `example.env` file and rename it to `.env`.
+- Ensure that **all 3 intents** are enabled for the bot in the [Discord Developer Portal](https://discord.com/developers/applications).
+- Copy and paste the `example.config.json` and rename it to `config.json`. Then fill out these with:
 
-In here, paste your bot token from the Discord Developer Portal and ensure that all 3 intents are enabled for the bot.
-
-Copy and paste the example.config.json and rename it to config.json. Then fill out these with:
-
+- `token`: Your bot token from the [Discord Developer Portal](https://discord.com/developers/applications)
+- `clientId`: Your application's client id from the [Discord Developer Portal](https://discord.com/developers/applications)
+- `port`: The port which the backend web server will run on
 - `guildId`: The Server ID of your Discord Server
 - `memberCount`: The channel you want the bot to keep up to date with your server count. (The bot will rename a channel with 🧑‍💻 Member Count: x)
 - `lastMember`: The channel you want the bot to keep up to date with your last joined member name. (The bot will rename a channel with ❤️ Last Member: x)
@@ -32,6 +34,21 @@ To install all the dependencies in this project, run `npm install`. You'll have 
 - To setup the database with the base option run `npx prisma migrate dev --name init` to create a migration, then run `npx prisma generate` to generate the prisma client.
 - Any time you make changes to the database model (found under `/prisma/schema.prisma`) and want to apply those changes, run the same commands.
 - This creates a SQLite file called dev.db in the root of the project. You can use a SQLite explorer of your choice to explore and modify the contents of it.
+
+# Deploying the slash-commands
+
+Slash-commands are registered globally for the application. After installing the dependencies and filling out your config, run:
+
+```bash
+npm run deploy-cmds
+```
+
+You need to run this command:
+
+- Once during setup, after the bot has been added to a server.
+- Whenever you add, remove, rename, or change the options/permissions of a slash-command.
+- When you want to publish a new or changed command definition.
+
 
 # Local testing:
 

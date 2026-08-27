@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy-cmds": "node src/deploy-commands.js",
     "start": "node src/index.js"
   },
   "keywords": [],

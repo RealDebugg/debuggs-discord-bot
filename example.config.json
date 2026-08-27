@@ -1,5 +1,10 @@
 {
   "guildId": "",
+  "bot": {
+    "token": "",
+    "clientId": "",
+    "port": 5050
+  },
   "channelIds": {
     "memberCount": "",
     "lastMember": "",

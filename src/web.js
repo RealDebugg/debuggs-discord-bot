@@ -1,5 +1,5 @@
 const express = require('express');
-const { userId } = require('../config.json');
+const { userId, bot } = require('../config.json');
 const createIphoneChargeEvent = require('./events/iphoneEvent');
 
 function createWebServer({ client, config }) {
@@ -79,7 +79,7 @@ function createWebServer({ client, config }) {
 	return {
 		start: (port) =>
 			new Promise((resolve) => {
-				const listenPort = port || process.env.PORT || 3000;
+				const listenPort = port || bot.port || 3000;
 				app.listen(listenPort, () => {
 					console.log(`Web server listening on port ${listenPort}`);
 					resolve();
