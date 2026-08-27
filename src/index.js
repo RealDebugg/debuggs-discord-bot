@@ -1,4 +1,4 @@
-//TODO: https://discordjs.guide/legacy/app-creation/handling-events
+// TODO: https://discordjs.guide/legacy/app-creation/handling-events
 const fs = require('node:fs');
 const path = require('node:path');
 const {
@@ -23,7 +23,6 @@ const client = new Client({
 module.exports = { client };
 require('./events/guildMember');
 const { initInvites } = require('./events/invites');
-const { bot } = require('../config.json');
 
 client.once(Events.ClientReady, async (readyClient) => {
 	await wait(1000);
@@ -37,8 +36,7 @@ client.once(Events.ClientReady, async (readyClient) => {
 		status: 'online',
 	});
 
-	const theGuild = client.guilds.cache.find(
-		(guild) => guild.id === guildId);
+	const theGuild = client.guilds.cache.find((guild) => guild.id === guildId);
 	const members = theGuild.memberCount;
 
 	client.channels.cache
@@ -60,15 +58,20 @@ const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+	const commandFiles = fs
+		.readdirSync(commandsPath)
+		.filter((file) => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const filePath = path.join(commandsPath, file);
 		const command = require(filePath);
 		// Set a new item in the Collection with the key as the command name and the value as the exported module
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
-		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		}
+		else {
+			console.log(
+				`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
+			);
 		}
 	}
 }
@@ -84,14 +87,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 	try {
 		await command.execute(interaction);
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({
 				content: 'There was an error while executing this command!',
 				flags: MessageFlags.Ephemeral,
 			});
-		} else {
+		}
+		else {
 			await interaction.reply({
 				content: 'There was an error while executing this command!',
 				flags: MessageFlags.Ephemeral,
