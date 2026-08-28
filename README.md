@@ -18,6 +18,7 @@ To setup and prepare the bot:
 - `lastMember`: The channel you want the bot to keep up to date with your last joined member name. (The bot will rename a channel with ❤️ Last Member: x)
 - `iphoneAnnouncements`: The channel where the bot will drop your iPhone charging announcements (if API endpoint is used).
 - `joinAnnouncements`: Where the bot will post join/leave announcements.
+- `tickets`: Channel ID of the tickets channel, to hotlink in the rules message. 
 - `userId`: YOUR Discord User ID
 - `activity`: The text the bot will show under it's activity.
 

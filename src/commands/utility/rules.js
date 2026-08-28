@@ -232,6 +232,8 @@ module.exports = {
 
 		const responseComponents = [];
 
+		responseComponents.push(new TextDisplayBuilder({ content: 'Welcome to the Debugg Discord Server!' }));
+
 		for (const rule of rules) {
 			const rsp = new ContainerBuilder({
 				components: [
@@ -263,7 +265,7 @@ module.exports = {
 		responseComponents.push(new ContainerBuilder({
 			components: [
 				new TextDisplayBuilder({ content: '**:warning: Important Notice**' }),
-				new TextDisplayBuilder({ content: '-# Please note that these rules also apply to DMs to server members. This server makes use of automatic moderation, and therefore scans / logs every message sent. By agreeing to the rules, you agree to this notice.\\nAgreeing to the rules without fully reading and understanding the rules is a violation of the rules, and will result in a termination from the  server.\\nThe rules listed above might be subject to change without notice.\\nUpon claiming the vistor role, you accept these rules and agree to keep yourself updated by reading the channel if a new message is posted. A staff member is able to interpret the rules as they see fit and apply them based on the spirit of the rules, not only the letter.' })
+				new TextDisplayBuilder({ content: '-# Please note that these rules also apply to DMs to server members. This server makes use of automatic moderation, and therefore scans / logs every message sent. By agreeing to the rules, you agree to this notice.\n-# Agreeing to the rules without fully reading and understanding the rules is a violation of the rules, and will result in a termination from the  server.\n-# The rules listed above might be subject to change without notice.\n-# Upon claiming the vistor role, you accept these rules and agree to keep yourself updated by reading the channel if a new message is posted. A staff member is able to interpret the rules as they see fit and apply them based on the spirit of the rules, not only the letter.' })
 			]
 		}).setAccentColor([249, 95, 95]));
 
@@ -288,20 +290,13 @@ module.exports = {
 		 */
 		const messageChunks = splitComponents(responseComponents);
 
+		// Acknowledge the interaction
+		await interaction.deferReply({ ephemeral: true });
+		await interaction.deleteReply();
 
-		/*
-		 * Send the first chunk as the interaction response.
-		 */
-		await interaction.reply({
-			flags: MessageFlags.IsComponentsV2,
-			components: messageChunks[0]
-		});
-
-		/*
-		 * Send any remaining chunks as follow-up messages.
-		 */
-		for (const chunk of messageChunks.slice(1)) {
-			await interaction.followUp({
+		// Send rules chunks (discord only allows 40 components per message)
+		for (const chunk of messageChunks) {
+			await interaction.channel.send({
 				flags: MessageFlags.IsComponentsV2,
 				components: chunk
 			});
