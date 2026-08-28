@@ -1,4 +1,9 @@
-const { SlashCommandBuilder, ContainerBuilder, TextDisplayBuilder, ActionRowBuilder, SeparatorBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js');
+const {
+	SlashCommandBuilder, ContainerBuilder, TextDisplayBuilder,
+	ActionRowBuilder, SeparatorBuilder, SeparatorSpacingSize,
+	ButtonBuilder, ButtonStyle, MessageFlags
+} = require('discord.js');
+const { guildId, channelIds } = require('../../../config.json');
 
 /**
  * Recursively counts a component and all of its children.
@@ -65,9 +70,6 @@ module.exports = {
 		.setDescription('Generates rules for the server in the current channel.'),
 
 	async execute(interaction) {
-		// TODO: Fix description in rule 3, 4, 5, 10
-		// TODO: Fix emojis in links
-		// TODO: Fix tickets channel links
 		const rules = [
 			{
 				title: '**1. Follow Discord\'s Terms of Service and Community Guidelines at all times.**',
@@ -75,12 +77,22 @@ module.exports = {
 				notice: null,
 				links: [
 					{
-						label: ':books: Terms of Service',
-						url: 'https://discord.com/terms'
+						label: 'Terms of Service',
+						url: 'https://discord.com/terms',
+						emoji: {
+							name: '📚',
+							id: null,
+							animated: false
+						}
 					},
 					{
-						label: ':bookmark: Community Guidelines',
-						url: 'https://discord.com/guidelines'
+						label: 'Community Guidelines',
+						url: 'https://discord.com/guidelines',
+						emoji: {
+							name: '🔖',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
@@ -92,39 +104,45 @@ module.exports = {
 			},
 			{
 				title: '**3. Be respectful.**',
-				description: `We won't tolerate hate speech, discrimination, or derogatory remarks.
-                All content on this server should adhere to the Relevant Discord Policy Explainer listed below.`,
+				description: 'We won\'t tolerate hate speech, discrimination, or derogatory remarks.\nAll content on this server should adhere to the Relevant Discord Policy Explainer listed below.',
 				notice: null,
 				links: [
 					{
-						label: ':link: Discord\'s Hateful Conduct Policy',
-						url: 'https://discord.com:2096/safety/hateful-conduct-policy-explainer'
+						label: 'Discord\'s Hateful Conduct Policy',
+						url: 'https://discord.com:2096/safety/hateful-conduct-policy-explainer',
+						emoji: {
+							name: '🔗',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
 			{
 				title: '**4. Your Discord profile is subject to our rules**',
-				description: `Staff Members may require you to change your name, server tag, avatar, banner, status, about me, pronouns, ....
-                Profile content should adhere to all rules, as well as Discord Terms of Service and Community Guidelines.`,
+				description: 'Staff Members may require you to change your name, server tag, avatar, banner, status, about me, pronouns, ....\nProfile content should adhere to all rules, as well as Discord Terms of Service and Community Guidelines.',
 				notice: null,
 				links: []
 			},
 			{
 				title: '**5. No spam.**',
-				description: `Do not post spam messages on the server.
-                Do not ask people to DM you.
-                Do not send unsolicited DMs to members of the server.`,
+				description: 'Do not post spam messages on the server.\nDo not ask people to DM you.\nDo not send unsolicited DMs to members of the server.',
 				notice: null,
 				links: []
 			},
 			{
 				title: '**6. No off-topic advertising.**',
 				description: 'Do not share promotional content including, but not limited to: content that has the sole purpose of gathering engagement, links to web shops, or links to other Discord servers. This includes self promotion. Content that is related to a topic at hand may be shared, but the topic must not violate this rule or any others.',
-				notice: ':bulb: If you are unsure of what you wish to share will violate this rule, contact a staff member.',
+				notice: '💡 If you are unsure of what you wish to share will violate this rule, contact a staff member.',
 				links: [
 					{
-						label: ':tickets: Contact a staff member',
-						url: 'https://google.com',
+						label: 'Contact a staff member',
+						url: `https://discord.com/channels/${guildId}/${channelIds.tickets}`,
+						emoji: {
+							name: '🎟️',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
@@ -134,8 +152,13 @@ module.exports = {
 				notice: null,
 				links: [
 					{
-						label: ':link: Discord\'s Identity Authenticity Policy',
-						url: 'https://discord.com:2096/safety/identity-authenticity-policy-explainer'
+						label: 'Discord\'s Identity Authenticity Policy',
+						url: 'https://discord.com:2096/safety/identity-authenticity-policy-explainer',
+						emoji: {
+							name: '🔗',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
@@ -145,8 +168,13 @@ module.exports = {
 				notice: null,
 				links: [
 					{
-						label: ':link: Discord\'s Copyright Trademark Policy',
-						url: 'https://discord.com/safety/copyright-trademark-policy-explainer'
+						label: 'Discord\'s Copyright Trademark Policy',
+						url: 'https://discord.com/safety/copyright-trademark-policy-explainer',
+						emoji: {
+							name: '🔗',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
@@ -156,20 +184,29 @@ module.exports = {
 				notice: null,
 				links: [
 					{
-						label: ':link: Discord\'s Doxxing Policy',
-						url: 'https://discord.com:2096/safety/doxxing-policy-explainer'
+						label: 'Discord\'s Doxxing Policy',
+						url: 'https://discord.com:2096/safety/doxxing-policy-explainer',
+						emoji: {
+							name: '🔗',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
 			{
 				title: '**10. Do not cause drama in public channels.**',
-				description: `Do not discuss any moderation actions, staff activity, issued punishments, and misinformation in public channels.
-                If you have any concerns, you can contact us via a ticket.`,
+				description: 'Do not discuss any moderation actions, staff activity, issued punishments, and misinformation in public channels.\nIf you have any concerns, you can contact us via a ticket.',
 				notice: null,
 				links: [
 					{
-						label: ':tickets:  Contact a staff member',
-						url: 'https://google.com',
+						label: 'Contact a staff member',
+						url: `https://discord.com/channels/${guildId}/${channelIds.tickets}`,
+						emoji: {
+							name: '🎟️',
+							id: null,
+							animated: false
+						}
 					}
 				]
 			},
@@ -204,7 +241,7 @@ module.exports = {
 			});
 
 			if (rule.notice) {
-				rsp.components.push(new TextDisplayBuilder({ content: rule.notice }));
+				rsp.components.push(new TextDisplayBuilder({ content: '-# ' + rule.notice }));
 			}
 
 			if (rule.links.length > 0) {
@@ -212,13 +249,38 @@ module.exports = {
 					components: rule.links.map(link => new ButtonBuilder({
 						style: ButtonStyle.Link,
 						url: link.url,
-						label: link.label
+						label: link.label,
+						emoji: link.emoji
 					}))
 				}));
 			}
 
 			responseComponents.push(rsp);
 		}
+
+		responseComponents.push(new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large));
+
+		responseComponents.push(new ContainerBuilder({
+			components: [
+				new TextDisplayBuilder({ content: '**:warning: Important Notice**' }),
+				new TextDisplayBuilder({ content: '-# Please note that these rules also apply to DMs to server members. This server makes use of automatic moderation, and therefore scans / logs every message sent. By agreeing to the rules, you agree to this notice.\\nAgreeing to the rules without fully reading and understanding the rules is a violation of the rules, and will result in a termination from the  server.\\nThe rules listed above might be subject to change without notice.\\nUpon claiming the vistor role, you accept these rules and agree to keep yourself updated by reading the channel if a new message is posted. A staff member is able to interpret the rules as they see fit and apply them based on the spirit of the rules, not only the letter.' })
+			]
+		}).setAccentColor([249, 95, 95]));
+
+		responseComponents.push(new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large));
+
+		responseComponents.push(new ActionRowBuilder({
+			components: [
+				new ButtonBuilder()
+					.setCustomId('rules_accept')
+					.setLabel('Accept Rules')
+					.setStyle(ButtonStyle.Success),
+				new ButtonBuilder()
+					.setCustomId('rules_decline')
+					.setLabel('Decline Rules')
+					.setStyle(ButtonStyle.Danger)
+			]
+		}));
 
 		/*
 		 * Split the containers into messages while respecting
@@ -234,7 +296,6 @@ module.exports = {
 			flags: MessageFlags.IsComponentsV2,
 			components: messageChunks[0]
 		});
-
 
 		/*
 		 * Send any remaining chunks as follow-up messages.
