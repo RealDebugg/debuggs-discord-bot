@@ -5,11 +5,16 @@
     "clientId": "",
     "port": 5050
   },
+  "roles": {
+    "rulesAccepted": "",
+    "administrator": ""
+  },
   "channelIds": {
     "memberCount": "",
     "lastMember": "",
     "iphoneAnnouncements": "",
-    "joinAnnouncements": ""
+    "joinAnnouncements": "",
+    "tickets": ""
   },
   "emojis": {
     "join": "",

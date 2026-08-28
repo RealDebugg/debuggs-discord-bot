@@ -3,7 +3,7 @@ const {
 	ActionRowBuilder, SeparatorBuilder, SeparatorSpacingSize,
 	ButtonBuilder, ButtonStyle, MessageFlags
 } = require('discord.js');
-const { guildId, channelIds } = require('../../../config.json');
+const { guildId, channelIds, roles } = require('../../../config.json');
 
 /**
  * Recursively counts a component and all of its children.
@@ -70,6 +70,14 @@ module.exports = {
 		.setDescription('Generates rules for the server in the current channel.'),
 
 	async execute(interaction) {
+		// Check if user has administrator role
+		if (!interaction.member.roles.cache.has(roles.administrator)) {
+			return interaction.reply({
+				content: 'You do not have permission to use this command.',
+				flags: MessageFlags.Ephemeral
+			});
+		}
+
 		const rules = [
 			{
 				title: '**1. Follow Discord\'s Terms of Service and Community Guidelines at all times.**',
@@ -291,7 +299,7 @@ module.exports = {
 		const messageChunks = splitComponents(responseComponents);
 
 		// Acknowledge the interaction
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		await interaction.deleteReply();
 
 		// Send rules chunks (discord only allows 40 components per message)
